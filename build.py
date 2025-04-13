@@ -4,6 +4,8 @@ import shutil
 import subprocess
 import sys
 
+RUST_FOLDER = "wasm-test/"
+
 def run_command(command, error_message):
     """Run a shell command and handle errors."""
     try:
@@ -23,16 +25,16 @@ def main():
     else:
         print("wasm-pack is installed.")
 
-    # Check for Cargo.toml in current directory or wasm-test/
+    # Check for Cargo.toml in current directory or RUST_FOLDER/
     project_dir = None
     if os.path.isfile("Cargo.toml"):
         project_dir = "."
         print("Found Cargo.toml in current directory.")
-    elif os.path.isfile(os.path.join("wasm-test", "Cargo.toml")):
-        project_dir = "wasm-test"
-        print("Found Cargo.toml in wasm-test/ directory.")
+    elif os.path.isfile(os.path.join(RUST_FOLDER, "Cargo.toml")):
+        project_dir = RUST_FOLDER
+        print(f"Found Cargo.toml in {RUST_FOLDER} directory.")
     else:
-        print("Error: Cargo.toml not found in current directory or wasm-test/. Please ensure you're in a Rust project directory.")
+        print(f"Error: Cargo.toml not found in current directory or {RUST_FOLDER}. Please ensure you're in a Rust project directory.")
         sys.exit(1)
 
     # Change to the project directory if necessary
