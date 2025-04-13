@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Tax Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <label for="income">Income:</label>
+    <input type="number" id="income" name="income" min="0">
+    <button id="calculateButton">Calculate Tax</button>
+    <p id="result"></p>
+    <script type="module">
+        import init, { calculate_tax } from './wasm-test/pkg/wasm_test.js';
+
+        async function run(){
+            await init();
+            function calculateTax(){
+                const income = parseFloat(document.getElementById("income").value);
+                const tax = calculate_tax(income);
+                document.getElementById("result").innerText = `Tax: ${tax.toFixed(2)}`
+            };
+            document.getElementById("calculateButton").addEventListener("click", calculateTax);
+        }
+        run();
+    </script>
+</body>
+</html>
